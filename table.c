@@ -2,10 +2,10 @@
 #include "table.h"
 
 void print_table(char* _table);
-void write_table(char* _file, unsigned char* _table);
+int write_table(char* _file, unsigned char* _table);
 
 
-void read_table(char* _file, unsigned char* _table)
+int read_table(char* _file, unsigned char* _table)
 {
     FILE* tf = NULL;
     tf = fopen(_file, "rb");
@@ -20,14 +20,16 @@ void read_table(char* _file, unsigned char* _table)
 
         fclose(tf);
         tf = NULL;
+        return 1;
     }
     else
     {
         printf("fail to open file %s", _file);
+        return 0;
     }
 }
 
-void write_table(char* _file, unsigned char* _table)
+int write_table(char* _file, unsigned char* _table)
 {
     FILE* tf = NULL;
     tf = fopen(_file, "wb");
@@ -36,10 +38,12 @@ void write_table(char* _file, unsigned char* _table)
         fwrite(_table, sizeof(unsigned char), 256, tf);
         fclose(tf);
         tf = NULL;
+        return 1;
     }
     else
     {
         printf("fail to open file %s", _file);
+        return 0;
     }
 }
 
@@ -56,8 +60,8 @@ void print_table(char* _table)
 void display_table(char* _file)
 {
     unsigned char table[256];
-    read_table(_file, table);
-    print_table(table);
+    if (read_table(_file, table))
+        print_table(table);
 }
 
 void create_table_default(char* _file)
