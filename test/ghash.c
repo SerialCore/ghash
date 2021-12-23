@@ -27,10 +27,6 @@ int main(int argc, char* argv[])
         {
             display_table(argv[2]);
         }
-        else if (!strcmp(argv[1], "-dx"))
-        {
-            display_hex(argv[2]);
-        }
         else if (!strcmp(argv[1], "-cd"))
         {
             create_table_default(argv[2]);
@@ -46,9 +42,9 @@ int main(int argc, char* argv[])
     }
     else if (argc == 4)
     {
-        if (!strcmp(argv[1], "-h1"))
+        if (!strcmp(argv[1], "-h"))
         {
-            prepare_hash(argv[2], argv[3], MERGE);
+            prepare_hash(argv[2], argv[3]);
         }
     }
     else
@@ -61,21 +57,19 @@ int main(int argc, char* argv[])
 
 void get_help()
 {
-    printf("A hash algorithm built on 16th-order multiplication table\n");
+    printf("A hash algorithm built on multiplication table of a 16th order group\n");
     printf("\nUSAGE\n");
     printf("\tghash <command> [file] [tablefile]\n");
     printf("\nCOMMANDS\n");
-    printf("\t-h1\tget hash code with MERGE\n");
+    printf("\t-h\tget hash code of the input file with table\n");
     printf("\t-dt\tdisplay a table\n");
-    printf("\t-dx\tdisplay hex code of a file\n");
     printf("\t-cd\tcreate a default table\n");
     printf("\t-cs\tcreate a sudoku-like table\n");
     printf("\nFLAGS\n");
     printf("\t--help\tdisplay this instruction\n");
     printf("\t--vers\tget the version of ghash\n");
     printf("\nEXAMPLES\n");
-    printf("\t$ ghash -h1 input.file table_1\n");
-    printf("\t$ ghash -dx input.file\n");
+    printf("\t$ ghash -h input.file table_1\n");
     printf("\t$ ghash -cd table_default\n");
 }
 

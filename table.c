@@ -1,55 +1,13 @@
 #include <stdio.h>
 #include "table.h"
+#include "fileio.h"
 
 void print_table(char* _table);
-int write_table(char* _file, unsigned char* _table);
 
-
-int read_table(char* _file, unsigned char* _table)
-{
-    FILE* tf = NULL;
-    tf = fopen(_file, "rb");
-    if (tf != NULL)
-    {
-        int i = 0;
-        while (fscanf(tf, "%c", &_table[i]) != EOF)
-        {
-            if (i == 255) break;
-            i++;
-        }
-
-        fclose(tf);
-        tf = NULL;
-        return 1;
-    }
-    else
-    {
-        printf("fail to open file %s", _file);
-        return 0;
-    }
-}
-
-int write_table(char* _file, unsigned char* _table)
-{
-    FILE* tf = NULL;
-    tf = fopen(_file, "wb");
-    if (tf != NULL)
-    {
-        fwrite(_table, sizeof(unsigned char), 256, tf);
-        fclose(tf);
-        tf = NULL;
-        return 1;
-    }
-    else
-    {
-        printf("fail to open file %s", _file);
-        return 0;
-    }
-}
 
 void print_table(char* _table)
 {
-    for (int i = 0; i < 256; i++)
+    for (int i = 0; i < TABL; i++)
     {
         printf(" %x", _table[i]);
         if (i % 16 == 15)
@@ -59,14 +17,14 @@ void print_table(char* _table)
 
 void display_table(char* _file)
 {
-    unsigned char table[256];
-    if (read_table(_file, table))
+    unsigned char table[TABL];
+    if (read_binary(_file, table, TABL))
         print_table(table);
 }
 
 void create_table_default(char* _file)
 {
-    unsigned char table[256];
+    unsigned char table[TABL];
     for (int i = 0; i < 16; i++)
     {
         for (int j = 0; j < 16; j++)
@@ -76,14 +34,14 @@ void create_table_default(char* _file)
     }
 
     print_table(table);
-    write_table(_file, table);
+    write_binary(_file, table, TABL);
 }
 
 void create_table_sudoku(char* _file)
 {
-    unsigned char table[256];
+    unsigned char table[TABL];
     // code
 
     print_table(table);
-    write_table(_file, table);
+    write_binary(_file, table, TABL);
 }
