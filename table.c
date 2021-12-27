@@ -9,7 +9,7 @@ void print_table(char* _table)
 {
     for (int i = 0; i < TABL; i++)
     {
-        printf(" %x", _table[i]);
+        printf(" %X", _table[i]);
         if (i % 16 == 15)
             printf("\n");
     }

@@ -50,6 +50,10 @@ int main(int argc, char* argv[])
         {
             prepare_hash(argv[2], argv[3], MERGE);
         }
+        else if (!strcmp(argv[1], "-h2"))
+        {
+            prepare_hash(argv[2], argv[3], CROSS);
+        }
     }
     else
     {
