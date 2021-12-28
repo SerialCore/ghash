@@ -3,28 +3,11 @@
 #include "table.h"
 #include "fileio.h"
 
-void hash_merge(unsigned char* _data, unsigned char* _table, long length);
-void hash_cross(unsigned char* _data, unsigned char* _table, long length);
+void compress_merge(unsigned char* _data, unsigned char* _table, long length);
+void compress_cross(unsigned char* _data, unsigned char* _table, long length);
 
 
-void display_hex(char* _file)
-{
-    long length;
-    if ((length = get_length(_file)) == FER)
-        return;
-
-    unsigned char data[length];
-    if (read_binary(_file, data, length))
-    {
-        for (long i = 0; i < length; i++)
-        {
-            printf(" %02X", data[i]);
-        }
-        printf("\n");
-    }
-}
-
-void prepare_hash(char* _file, char* _tfile, int _option)
+void choose_algorithm(char* _file, char* _tfile, int _option)
 {
     long length;
     if ((length = get_length(_file)) == FER)
@@ -36,16 +19,16 @@ void prepare_hash(char* _file, char* _tfile, int _option)
     {
         if (_option == MERGE)
         {
-            hash_merge(data, table, length);
+            compress_merge(data, table, length);
         }
         else if (_option == CROSS)
         {
-            hash_cross(data, table, length);
+            compress_cross(data, table, length);
         }
     }
 }
 
-void hash_merge(unsigned char* _data, unsigned char* _table, long _length)
+void compress_merge(unsigned char* _data, unsigned char* _table, long _length)
 {
     unsigned char left;
     unsigned char right;
@@ -78,7 +61,7 @@ void hash_merge(unsigned char* _data, unsigned char* _table, long _length)
     printf("\n");
 }
 
-void hash_cross(unsigned char* _data, unsigned char* _table, long _length)
+void compress_cross(unsigned char* _data, unsigned char* _table, long _length)
 {
     unsigned char left;
     unsigned char right;

@@ -22,6 +22,23 @@ void display_table(char* _file)
         print_table(table);
 }
 
+void display_hex(char* _file)
+{
+    long length;
+    if ((length = get_length(_file)) == FER)
+        return;
+
+    unsigned char data[length];
+    if (read_binary(_file, data, length))
+    {
+        for (long i = 0; i < length; i++)
+        {
+            printf(" %02X", data[i]);
+        }
+        printf("\n");
+    }
+}
+
 void create_table_default(char* _file)
 {
     unsigned char table[TABL];
