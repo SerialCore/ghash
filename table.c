@@ -2,10 +2,10 @@
 #include "table.h"
 #include "fileio.h"
 
-void print_table(char* _table);
+void print_table(unsigned char* _table);
 
 
-void print_table(char* _table)
+void print_table(unsigned char* _table)
 {
     for (int i = 0; i < TABL; i++)
     {

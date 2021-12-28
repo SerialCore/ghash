@@ -23,7 +23,7 @@ long get_length(char* _file)
     }
 }
 
-int read_binary(char* _file, char* _data, long _length)
+int read_binary(char* _file, unsigned char* _data, long _length)
 {
     FILE* f = NULL;
     f = fopen(_file, "rb");
@@ -37,7 +37,7 @@ int read_binary(char* _file, char* _data, long _length)
         //    i++;
         //}
 
-        fread(_data, sizeof(char), _length, f);
+        fread(_data, sizeof(unsigned char), _length, f);
         fclose(f);
         f = NULL;
         return 1;
@@ -49,14 +49,14 @@ int read_binary(char* _file, char* _data, long _length)
     }
 }
 
-int write_binary(char* _file, char* _data, long _length)
+int write_binary(char* _file, unsigned char* _data, long _length)
 {
     FILE* f = NULL;
     f = fopen(_file, "wb");
 
     if (f != NULL)
     {
-        fwrite(_data, sizeof(char), _length, f);
+        fwrite(_data, sizeof(unsigned char), _length, f);
         fclose(f);
         f = NULL;
         return 1;

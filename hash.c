@@ -3,8 +3,8 @@
 #include "table.h"
 #include "fileio.h"
 
-void hash_merge(char* _data, char* _table, long length);
-void hash_cross(char* _data, char* _table, long length);
+void hash_merge(unsigned char* _data, unsigned char* _table, long length);
+void hash_cross(unsigned char* _data, unsigned char* _table, long length);
 
 
 void display_hex(char* _file)
@@ -45,7 +45,7 @@ void prepare_hash(char* _file, char* _tfile, int _option)
     }
 }
 
-void hash_merge(char* _data, char* _table, long _length)
+void hash_merge(unsigned char* _data, unsigned char* _table, long _length)
 {
     unsigned char left;
     unsigned char right;
@@ -66,7 +66,7 @@ void hash_merge(char* _data, char* _table, long _length)
             right = _data[i + 1] & 0x0F;
             product_l = _table[left * 16 + right];
 
-            _data[data_count] = product_h << 4 + product_l;
+            _data[data_count] = product_h << 4 | product_l;
         }
         data_length /= 2;
     }
@@ -78,7 +78,7 @@ void hash_merge(char* _data, char* _table, long _length)
     printf("\n");
 }
 
-void hash_cross(char* _data, char* _table, long _length)
+void hash_cross(unsigned char* _data, unsigned char* _table, long _length)
 {
     unsigned char left;
     unsigned char right;
@@ -91,7 +91,7 @@ void hash_cross(char* _data, char* _table, long _length)
     {
         for (long i = 0, data_count = 0; i < data_length; i += 2, data_count++)
         {
-            left = _data[i] >> 4;       
+            left = _data[i] >> 4;
             right = _data[i + 1] & 0x0F;
             product_h = _table[left * 16 + right];
 
@@ -99,7 +99,7 @@ void hash_cross(char* _data, char* _table, long _length)
             right = _data[i + 1] >> 4;
             product_l = _table[left * 16 + right];
 
-            _data[data_count] = product_h << 4 + product_l;
+            _data[data_count] = product_h << 4 | product_l;
         }
         data_length /= 2;
     }
