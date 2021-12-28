@@ -3,8 +3,9 @@
 #include "table.h"
 #include "fileio.h"
 
-void compress_merge(unsigned char* _data, unsigned char* _table, long length);
-void compress_cross(unsigned char* _data, unsigned char* _table, long length);
+void compress_merge(unsigned char* _data, unsigned char* _table, long _length);
+void compress_cross(unsigned char* _data, unsigned char* _table, long _length);
+void hash(unsigned char* _data, unsigned char* _table, long _length);
 
 
 void choose_algorithm(char* _file, char* _tfile, int _option)
@@ -25,6 +26,10 @@ void choose_algorithm(char* _file, char* _tfile, int _option)
         {
             compress_cross(data, table, length);
         }
+        else if (_option == HASH)
+        {
+            hash(data, table, length);
+        }
     }
 }
 
@@ -39,7 +44,7 @@ void compress_merge(unsigned char* _data, unsigned char* _table, long _length)
     long data_length = _length;
     while (data_length > HASHL)
     {
-        for (long i = 0, data_count = 0; i < data_length; i += 2, data_count++)
+        for (long i = 0, data_count = 0; i < data_length; i += 2, data_count++) // deal with the count and length
         {
             left = _data[i] >> 4;
             right = _data[i + 1] >> 4;
@@ -72,7 +77,7 @@ void compress_cross(unsigned char* _data, unsigned char* _table, long _length)
     long data_length = _length;
     while (data_length > HASHL)
     {
-        for (long i = 0, data_count = 0; i < data_length; i += 2, data_count++)
+        for (long i = 0, data_count = 0; i < data_length; i += 2, data_count++) // deal with the count and length
         {
             left = _data[i] >> 4;
             right = _data[i + 1] & 0x0F;
@@ -90,6 +95,34 @@ void compress_cross(unsigned char* _data, unsigned char* _table, long _length)
     for (int i = 0; i < data_length; i++)
     {
         printf("%02X", _data[i]);
+    }
+    printf("\n");
+}
+
+void hash(unsigned char* _data, unsigned char* _table, long _length)
+{
+    unsigned char left;
+    unsigned char right;
+    unsigned char aleft;
+    unsigned char aright;
+
+    unsigned char hash[HASHL];
+    for (int i = 0; i < HASHL; i++)
+        hash[i] = 0;
+
+    for (long i = 0; i < _length; i += 2)
+    {
+        left = _data[i] >> 4;
+        right = _data[i + 1] >> 4;
+        aleft = _data[i] & 0x0F;
+        aright = _data[i + 1] & 0x0F;
+
+        hash[(int)((aleft + aright) * HASHL / 32)] += _table[left * 16 + right];
+    }
+
+    for (int i = 0; i < HASHL; i++)
+    {
+        printf("%02X", hash[i]);
     }
     printf("\n");
 }

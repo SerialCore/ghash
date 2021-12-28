@@ -54,6 +54,10 @@ int main(int argc, char* argv[])
         {
             choose_algorithm(argv[2], argv[3], CROSS);
         }
+        else if (!strcmp(argv[1], "-h"))
+        {
+            choose_algorithm(argv[2], argv[3], HASH);
+        }
     }
     else
     {
@@ -69,6 +73,7 @@ void get_help()
     printf("\nUSAGE\n");
     printf("\tghash <command> [file] [tablefile]\n");
     printf("\nCOMMANDS\n");
+    printf("\t-h\tget hash code\n");
     printf("\t-c1\tget compressed code with MERGE\n");
     printf("\t-c2\tget compressed code with CROSS\n");
     printf("\t-x\tdisplay hex code of a file\n");
