@@ -46,17 +46,17 @@ int main(int argc, char* argv[])
     }
     else if (argc == 4)
     {
-        if (!strcmp(argv[1], "-c1"))
+        if (!strcmp(argv[1], "-h"))
+        {
+            choose_algorithm(argv[2], argv[3], HASH);
+        }
+        else if (!strcmp(argv[1], "-c1"))
         {
             choose_algorithm(argv[2], argv[3], MERGE);
         }
         else if (!strcmp(argv[1], "-c2"))
         {
             choose_algorithm(argv[2], argv[3], CROSS);
-        }
-        else if (!strcmp(argv[1], "-h"))
-        {
-            choose_algorithm(argv[2], argv[3], HASH);
         }
     }
     else

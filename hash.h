@@ -1,6 +1,6 @@
-#define HASHL 16
-#define MERGE 0
-#define CROSS 1
-#define HASH  2
+#define HASHL 32
+#define HASH  0
+#define MERGE 1
+#define CROSS 2
 
 void choose_algorithm(char* _file, char* _tfile, int _option);
