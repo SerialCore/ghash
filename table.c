@@ -7,8 +7,12 @@ void print_table(unsigned char* _table);
 
 void print_table(unsigned char* _table)
 {
+    printf("   R 0 1 2 3 4 5 6 7 8 9 A B C D E F\n");
+    printf(" L   -------------------------------\n");
     for (int i = 0; i < TABL; i++)
     {
+        if (i % 16 == 0)
+            printf(" %X |", (unsigned char)(i / 16));
         printf(" %X", _table[i]);
         if (i % 16 == 15)
             printf("\n");
