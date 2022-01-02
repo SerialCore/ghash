@@ -40,10 +40,7 @@ void hash(unsigned char* _data, unsigned char* _table, long _length)
     unsigned char aleft;
     unsigned char aright;
 
-    unsigned char hash[HASHL];
-    for (int i = 0; i < HASHL; i++)
-        hash[i] = 0;
-
+    unsigned char hash[HASHL] = {0};
     for (long i = 0; i < (_length % 2? _length - 1 : _length); i += 2)
     {
         left = _data[i] >> 4;

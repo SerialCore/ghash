@@ -58,6 +58,10 @@ int main(int argc, char* argv[])
         {
             choose_algorithm(argv[2], argv[3], CROSS);
         }
+        else if (!strcmp(argv[1], "-tg"))
+        {
+            create_table_group(argv[3], argv[2][0]);
+        }
     }
     else
     {
@@ -79,14 +83,17 @@ void get_help()
     printf("\t-x\tdisplay hex code of a file\n");
     printf("\t-t\tdisplay a table\n");
     printf("\t-td\tcreate a default table\n");
+    printf("\t-tg\tcreate a group table with identity element\n");
     printf("\t-ts\tcreate a sudoku-like table\n");
     printf("\nFLAGS\n");
     printf("\t--help\tdisplay this instruction\n");
     printf("\t--vers\tget the version of ghash\n");
     printf("\nEXAMPLES\n");
-    printf("\t$ ghash -c1 input.file table_1\n");
-    printf("\t$ ghash -x input.file\n");
-    printf("\t$ ghash -td table_default\n\n");
+    printf("\t$ ghash -h file table\n");
+    printf("\t$ ghash -x file\n");
+    printf("\t$ ghash -t table\n");
+    printf("\t$ ghash -td table_default\n");
+    printf("\t$ ghash -tg A table_group_A\n");
 }
 
 void get_version()
